@@ -9,7 +9,7 @@ def PlaySound(sound):
 
 def StartPlay(timerNumber):
    # countdown(timerNumber)
-    PlaySound('GLaDOS-564474.wav')
+    PlaySound('Sound/GLaDOS-564474.wav')
 
 
 

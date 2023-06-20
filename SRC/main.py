@@ -2,19 +2,17 @@ import customtkinter as tk
 from Timerr import StartPlay
 import time
 
-isShow = False
 loopit = False
 timerNumber = "Select a Timer"
 
 
 def SelectTimer(Timer=None):
-    global timerNumber, isShow
+    global timerNumber
     if Timer is not None:
         timerNumber = Timer
     text_label.configure(text=timerNumber)
-    isShow = True
-    if isShow:
-        buttonStart.configure(state=tk.NORMAL)
+    buttonStart.configure(state=tk.NORMAL)
+
 
 def button_command():
     if buttonStart.cget("text") == "Start":
@@ -22,27 +20,38 @@ def button_command():
     else:
         StopTimer()
 
+
 def StartTimer():
     global loopit
+    loopit = True
     countdown(int(timerNumber))
-    loopit = True  
-    buttonStart.configure(text = "Stop")
-    
+    buttonStart.configure(text="Stop")
+
+
 def StopTimer():
     global loopit
-    loopit = False 
-    buttonStart.configure(text = "Start")
-    print("stoped")
+    loopit = False
+    buttonStart.configure(text="Start")
+    print("Stopped")
+
+
+
+
 
 def countdown(t):
-    if t >= 0:
+    
+    if t >= 0 and loopit:
         print(t)
         text_label.configure(text=t)
-        root.after(1000, countdown, t-1)
-    else:
+        root.after(1000, countdown, t - 1)
+    elif t <= 0 and loopit:
         StartPlay(int(timerNumber))
+        StartTimer()
+        
+        
+    
 
-#        
+
 root = tk.CTk()
 root.geometry("361x540")
 root.resizable(False, False)
