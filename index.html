@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>LOL Timer Button</title>
+<style>
+body {
+  font-family: sans-serif;
+}
+
+.container {
+  width: 400px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+h1 {
+  text-align: center;
+  font-size: 50px;
+}
+
+
+.timer {
+  font-size: 20px;
+  padding-top: 20px;
+  padding-bottom: 10px;
+}
+
+button {
+  width: 100px;
+  height: 50px;
+  background-color: #000;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  opacity: 0.5;
+  
+}
+
+button:hover {
+  opacity: 1;
+  
+}
+
+.align-buttons {
+  display: flex;
+  justify-content: space-around;
+  text-align: center;
+  padding-top: 40px;
+}
+
+.align-button {
+  width: 100px;
+  height: 50px;
+  background-color: #ccc;
+  color: #000;
+  border: none;
+  cursor: pointer;
+}
+</style>
+</head>
+<body>
+<div class="container">
+  <h1>LOL's Timer</h1>
+  <h2 class="timer">Select a Timer</h2>
+  <button id="button" onclick="Stsp()">Start</button>
+  <div class="align-buttons">
+    <button id="align-left" onclick="onclick10()">10</button>
+    <button id="align-center" onclick="onclick15()">15</button>
+    <button id="align-right" onclick="onclick30()">30</button>
+  </div>
+</div>
+<script>
+const button = document.getElementById("button");
+const h2 = document.querySelector(".timer");
+const LButton = document.getElementById("align-left");
+const MButton = document.getElementById("align-center");
+const RButton = document.getElementById("align-right");
+
+button.disabled = true;
+button.style.cursor = "not-allowed";
+    
+
+////
+isrunning = false;
+var i = parseInt(h2.innerHTML);
+var audio = new Audio("/Sound/GLaDOS-564474.wav");
+
+  function Stsp()
+  {
+    if(button.innerHTML == "Start")
+    {
+      console.log("starting");
+      Start();
+    }
+    else
+    {
+      console.log("stoping");
+      Stop();
+    }
+  }
+  function Start()
+  {
+    isrunning = true;
+    button.innerHTML = "Stop";
+    IfPressed(1);
+    countdown((parseInt(h2.innerHTML)), h2);
+  }
+  function Stop()
+  {
+    isrunning = false;
+    IfPressed(0);
+    button.innerHTML = "Start";
+    
+  }
+  function onclick10() 
+  {
+    button.disabled = false;
+    button.style.cursor = "auto";
+    h2.innerHTML = "10";
+    i = parseInt(h2.innerHTML);
+  }
+  function onclick15() 
+  {
+    button.disabled = false;
+    button.style.cursor = "auto";
+    h2.innerHTML = "15";
+    i = parseInt(h2.innerHTML);
+  }
+  function onclick30() 
+  {
+    button.disabled = false;
+    button.style.cursor = "auto";
+    h2.innerHTML = "30";
+    i = parseInt(h2.innerHTML);   
+  }
+  function countdown(t, h2) 
+  {
+    if (t >= 0 && isrunning) 
+    {
+      h2.innerHTML = t;
+      setTimeout(() => countdown(t - 1, h2), 1000);
+    }
+    else if (t <= 0 && isrunning)
+    {
+      audio.play();
+      countdown(i, h2)
+    }
+  }
+  
+  function IfPressed(t)
+  {
+    if(t == 1)
+    {
+        LButton.disabled = true;
+        LButton.style.cursor = "not-allowed";
+        MButton.disabled = true;
+        MButton.style.cursor = "not-allowed";
+        RButton.disabled = true;
+        RButton.style.cursor = "not-allowed";
+    }
+    else
+    {
+        LButton.disabled = false;
+        LButton.style.cursor = "auto";
+        MButton.disabled = false;
+        MButton.style.cursor = "auto";
+        RButton.disabled = false;
+        RButton.style.cursor = "auto";
+    }
+  }
+</script>
+</body>
+</html>
